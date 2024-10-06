@@ -1,5 +1,5 @@
 <?php 
-    require '/app/models/producto.php';
+    require '/app/models/producto.model.php';
     require '/app/views/products.view.php';
 
     class productController {
