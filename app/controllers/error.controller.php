@@ -1,6 +1,6 @@
 <?php
 
-require_once "app/views/error.view.php";
+require_once "../app/views/error.view.php";
 
 class ErrorController {
 

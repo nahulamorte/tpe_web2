@@ -1,6 +1,6 @@
 <?php
 
-class productView {
+class productsView {
 
     public function showProducts(){
         require_once '/xampp/htdocs/TPE/tpe_web2/templates/header.php';

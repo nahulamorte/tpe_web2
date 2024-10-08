@@ -1,6 +1,6 @@
 <?php 
-    require '/app/models/producto.model.php';
-    require '/app/views/products.view.php';
+    require '../app/models/producto.model.php';
+    require '../app/views/products.view.php';
 
     class productController {
 
@@ -14,7 +14,7 @@
 
         function showProducts() {
             $productos = $this->model->getProducts();
-            $this->view->showProductos($productos);  
+            $this->view->showProducts($productos);  
         }
 
 

@@ -3,6 +3,6 @@
 class ErrorView {
 
     function showError ($error) {
-        require "templates/error.phtml";
+        require "../templates/error.phtml";
     }
 }

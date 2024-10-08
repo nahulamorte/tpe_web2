@@ -17,9 +17,7 @@ switch ($params[0]){
         $controller = new productController;
         $controller->showProducts();
         break;
-    //  case 'productos':
-    //      deploy();
-    //      break;
+
     // case 'item':
     //     if (isset($paramas[1])) $id = $params[1];
     //     showItem($id);
