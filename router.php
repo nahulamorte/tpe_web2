@@ -2,7 +2,11 @@
 
 require_once '/app/controllers/producto.Controller.php';
 
-$action = 'home'; // acción por defecto
+$action = 'productos'; // acción por defecto
+
+// base_url para redirecciones y base tag
+define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
+
 
 if (!empty($_GET['action'])) { // si viene definida la reemplazamos
     $action = $_GET['action'];
