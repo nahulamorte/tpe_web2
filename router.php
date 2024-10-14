@@ -1,17 +1,13 @@
 <?php
+require_once './app/controllers/product.controller.php';
 
-require_once '/app/controllers/producto.Controller.php';
-
-$action = 'productos'; // acción por defecto
+$action = 'productos';
 
 // base_url para redirecciones y base tag
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
-
-if (!empty($_GET['action'])) { // si viene definida la reemplazamos
+if (!empty($_GET['action'])) { 
     $action = $_GET['action'];
-} else {
-    $action = 'productos';
 }
 
 $params = explode('/', $action);
@@ -29,9 +25,9 @@ switch ($params[0]){
     // case 'categoria':
     //     showCategoria();
     //     break;    
-    defualt:
+    default:
         $controller = new productController();
-        $controller-> showError();
+        // $controller-> showError();
         //echo('404 Page not found');//HACER TEMPLATE PARA ERROR 
         break;
 }
@@ -41,4 +37,4 @@ switch ($params[0]){
 /home   | showHome()
 /about  | showAbout()
 /items/:id  | showItems($id)
-/categoria | showCategoria()
+/categoria | showCategoria() */
