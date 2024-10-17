@@ -1,8 +1,5 @@
-<?php
-
-require 'header.php';
-require_once './app/models/products.model.php';
-?>
+<?php require 'templates/header.phtml' ?>
+<?php require_once './app/models/products.model.php' ?>
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Productos Disponibles</h1>
@@ -22,7 +19,7 @@ require_once './app/models/products.model.php';
                         <p class="card-text"><strong>Precio:</strong> $<?= htmlspecialchars($producto->precio); ?></p>
                         <p class="card-text"><strong>Peso Neto:</strong> <?= htmlspecialchars($producto->peso_neto); ?> kg</p>
                         <p class="card-text">
-                            <strong>Descripción:</strong> <?= nl2br(htmlspecialchars($producto->descripcion)); ?>
+                            <strong>Descripción:</strong> <?= $producto->descripcion; ?>
                         </p>
                     </div>
 
@@ -37,7 +34,5 @@ require_once './app/models/products.model.php';
         <?php endforeach; ?>
     </div>
 </div>
-
-<?php
 
 require 'footer.php';

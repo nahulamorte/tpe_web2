@@ -3,7 +3,6 @@
     require './app/view/products.view.php';
 
     class productController {
-
         private $model;
         private $view;
     
@@ -17,5 +16,4 @@
             $this->view->showProducts($productos);  
         }
     }
-
 ?>
