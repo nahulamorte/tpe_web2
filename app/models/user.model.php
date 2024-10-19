@@ -1,6 +1,6 @@
 <?php
 
-require_once '/xampp/htdocs/TPE/tpe_web2/config.php';
+require_once 'config.php';
 
 class UserModel{
     private $db;

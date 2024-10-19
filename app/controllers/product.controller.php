@@ -2,13 +2,13 @@
     require './app/models/products.model.php';
     require './app/view/products.view.php';
 
-    class productController {
+    class ProductController {
         private $model;
         private $view;
     
         public function __construct() {
             $this->model = new ProductModel();
-            $this->view = new productsView();
+            $this->view = new ProductView();
         }
 
         function showProducts() {

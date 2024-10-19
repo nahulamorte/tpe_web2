@@ -1,5 +1,4 @@
 <?php require 'templates/header.phtml' ?>
-<?php require_once './app/models/products.model.php' ?>
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Productos Disponibles</h1>
@@ -7,26 +6,37 @@
     <!-- Iteración de productos -->
     <div class="row">
         <?php foreach ($productos as $producto): ?>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card shadow-sm h-100">
                     <!-- Encabezado del producto -->
-                    <div class="card-header text-center">
-                        <h5 class="card-title"><?= htmlspecialchars($producto->nombre); ?></h5>
+                    <div class="card-header bg-primary text-white text-center">
+                        <h5 class="card-title mb-0""><?= htmlspecialchars($producto->nombre); ?></h5>
                     </div>
 
                     <!-- Cuerpo del producto -->
-                    <div class="card-body">
-                        <p class="card-text"><strong>Precio:</strong> $<?= htmlspecialchars($producto->precio); ?></p>
-                        <p class="card-text"><strong>Peso Neto:</strong> <?= htmlspecialchars($producto->peso_neto); ?> kg</p>
-                        <p class="card-text">
-                            <strong>Descripción:</strong> <?= $producto->descripcion; ?>
+                    <div class="card-body d-flex flex-column">
+                        <p class="card-text text-muted"><strong>Precio:</strong> $<?= htmlspecialchars($producto->precio); ?></p>
+                        <p class="card-text text-muted"><strong>Peso Neto:</strong> <?= htmlspecialchars($producto->peso_neto); ?> kg</p>
+                        <p class="card-text text-muted">
+                            <strong>Descripción:</strong> <?= htmlspecialchars($producto->descripcion); ?>
                         </p>
                     </div>
 
-                    <!-- Pie de la tarjeta con enlace al detalle -->
-                    <div class="card-footer text-center">
-                        <a href="/productos/<?= $producto->id_producto; ?>" class="btn btn-primary">
+                    <!-- Pie de la tarjeta con enlaces de acción -->
+                    <div class="card-footer d-flex justify-content-around">
+                        <!-- Enlace para ver detalles del producto -->
+                        <a href="/productos/<?= $producto->id_producto; ?>" class="btn btn-outline-primary btn-sm">
                             Ver Detalles
+                        </a>
+                        <br>
+                        <!-- Enlace para actualizar el producto -->
+                        <a href="/productos/editar/<?= $producto->id_producto; ?>" class="btn btn-outline-warning btn-sm">
+                            Actualizar
+                        </a>
+                        <br>
+                        <!-- Enlace para eliminar el producto -->
+                        <a href="/productos/eliminar/<?= $producto->id_producto; ?>" class="btn btn-outline-danger btn-sm">
+                            Eliminar
                         </a>
                     </div>
                 </div>
@@ -35,4 +45,4 @@
     </div>
 </div>
 
-require 'footer.php';
+<?php require 'templates/footer.phtml'; ?>

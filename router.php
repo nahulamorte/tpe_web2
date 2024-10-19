@@ -1,5 +1,6 @@
 <?php
 require_once './app/controllers/product.controller.php';
+require_once './app/controllers/categoria.controller.php';
 
 $action = 'productos';
 
@@ -14,21 +15,30 @@ $params = explode('/', $action);
 
 switch ($params[0]){
     case 'productos':
-        $controller = new productController;
+        $controller = new ProductController();
         $controller->showProducts();
         break;
-
-    // case 'item':
-    //     if (isset($paramas[1])) $id = $params[1];
-    //     showItem($id);
-    //     break;
-    // case 'categoria':
-    //     showCategoria();
-    //     break;    
+    case 'categorias':
+        $controller = new CategoriaController();
+        if (!isset($params[1])) {
+            // Si no hay un segundo parámetro, se muestran las categorías
+            $controller->showCategorias();
+        } else if ($params[1] == 'editar' && isset($params[2])) {
+            // Editar una categoría si el ID está presente
+            $controller->updateCategory($params[2]);
+        } else if ($params[1] == 'eliminar' && isset($params[2])) {
+            // Eliminar una categoría si el ID está presente
+            $controller->deleteCategory($params[2]);
+        } else {
+            echo "Operación no válida.";
+        }
+        break;
+    case 'categoriaitems':
+        $controller = new CategoriaController();
+        $controller->showItemsByCategory($params[1]);
+        break;
     default:
-        $controller = new productController();
-        // $controller-> showError();
-        //echo('404 Page not found');//HACER TEMPLATE PARA ERROR 
+
         break;
 }
 
