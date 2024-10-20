@@ -1,6 +1,8 @@
 <?php
 require_once './app/controllers/product.controller.php';
 require_once './app/controllers/categoria.controller.php';
+require_once './app/controllers/auth.controller.php';
+require_once './app/controllers/about.controller.php';
 
 $action = 'productos';
 
@@ -33,12 +35,31 @@ switch ($params[0]){
             echo "Operación no válida.";
         }
         break;
+    case 'about':
+        $controller = new AboutController();
+        $controller->showAbout();
+        break;
+    case 'agregarcategoria':
+        $controller = new CategoriaController();
+        $controller->agregarCategoria();
+        break;
     case 'categoriaitems':
         $controller = new CategoriaController();
         $controller->showItemsByCategory($params[1]);
         break;
+    case 'showlogin':
+        $controller = new AuthController();
+        $controller->showLogin();
+        break;
+    case 'login':
+        $controller = new AuthController();
+        $controller->login();
+        break;
+    case 'logout':
+        $controller = new AuthController();
+        $controller->logout();
+        break;
     default:
-
         break;
 }
 

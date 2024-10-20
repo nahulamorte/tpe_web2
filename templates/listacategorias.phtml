@@ -1,4 +1,5 @@
-<?php require 'templates/header.phtml' ?> 
+<?php require 'templates/layout/header.phtml' ?> 
+<?php require 'templates/form.categorias.phtml' ?>
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Categorias</h1>
@@ -20,11 +21,7 @@
                     <div class="card-footer d-flex justify-content-around">
                         <!-- Botón para ver productos -->
                         <a href="categoriaitems/<?= $categoria->id_categoria; ?>" class="btn btn-outline-primary btn-sm">
-                            Productos
-                        </a>
-                        <!-- Botón para actualizar la categoría -->
-                        <a href="categorias/editar/<?= $categoria->id_categoria; ?>" class="btn btn-outline-warning btn-sm">
-                            Editar
+                            Ver productos
                         </a>
                         <!-- Botón para eliminar la categoría -->
                         <a href="categorias/eliminar/<?= $categoria->id_categoria; ?>" class="btn btn-outline-danger btn-sm">
@@ -37,4 +34,4 @@
     </div>
 </div>
 
-<?php require 'templates/footer.phtml'; ?>
+<?php require 'templates/layout/footer.phtml'; ?>

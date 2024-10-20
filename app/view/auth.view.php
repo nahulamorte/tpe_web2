@@ -6,7 +6,8 @@ class authView {
         header("Location: ".BASE_URL.$action);
     }
 
+    
     function showLogin(){
-        require 'form.phtml';
+        require 'templates/form.phtml';
     }
 }
