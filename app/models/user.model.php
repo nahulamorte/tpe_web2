@@ -9,6 +9,18 @@ class UserModel{
         $this->db = $this->conect();
     }
 
+    // Función para registrar un nuevo usuario
+    public function registerUser($email, $password) {
+        // Hashear la contraseña
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+        // Preparar la consulta de inserción
+        $query = $this->db->prepare('INSERT INTO usuarios (email, password) VALUES (?, ?)');
+
+        // Ejecutar la consulta con los parámetros correspondientes
+        return $query->execute([$email, $passwordHash]);
+    }
+
     public function getUserFromEmail($email) {
         $query = $this->db->prepare("SELECT * FROM 'usuarios' WHERE email = ?");
         $query->execute([$email]);
