@@ -1,6 +1,7 @@
 <?php 
-    require 'app/models/products.model.php';
-    require 'app/view/products.view.php';
+
+require 'app/models/products.model.php';
+require 'app/view/products.view.php';
 
     class productController {
 
@@ -14,10 +15,10 @@
             $this->authController = new AuthController();
         }
 
-        function showProducts() {
-            $productos = $this->model->getProducts();
-            $this->view->showProducts($productos);  
-        }
+    function showProducts() {
+        $productos = $this->model->getProducts();
+        $this->view->showProducts($productos);  
+    }
 
         public function showProductsById($id){
             $this->model->getProductById($id);

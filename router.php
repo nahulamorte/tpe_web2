@@ -22,7 +22,6 @@ switch ($params[0]){
         break;
     case 'categorias':
         $controller = new CategoriaController();
-        if ($authController->checkLoggedIn()) {
             if (!isset($params[1])) {
                 $controller->showCategorias();
             } else if ($params[1] == 'editar' && isset($params[2])) {
@@ -32,10 +31,7 @@ switch ($params[0]){
             } else {
                 echo "Operación no válida.";
             }
-        } else {
-            header('Location: ' . BASE_URL . 'showlogin');
-            exit();
-        }
+  
         break;
     case 'about':
         $controller = new AboutController();
@@ -70,9 +66,3 @@ switch ($params[0]){
         break;
 }
 
-/*Tabla de routeo*/
-/* URL / destino
-/home   | showHome()s
-/about  | showAbout()
-/items/:id  | showItems($id)
-/categoria | showCategoria() */

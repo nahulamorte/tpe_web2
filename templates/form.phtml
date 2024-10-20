@@ -3,12 +3,6 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Iniciar Sesión</h1>
 
-    <?php if ($error): ?>
-        <div class='alert alert-danger' role='alert'>
-            <?= $error ?>
-        </div>
-    <?php endif ?>
-
     <form method='post' action='login'>
         <div class='form-group mb-3'>
             <label for='email'>Email</label>
