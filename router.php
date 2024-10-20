@@ -22,17 +22,19 @@ switch ($params[0]){
         break;
     case 'categorias':
         $controller = new CategoriaController();
-        if (!isset($params[1])) {
-            // Si no hay un segundo parámetro, se muestran las categorías
-            $controller->showCategorias();
-        } else if ($params[1] == 'editar' && isset($params[2])) {
-            // Editar una categoría si el ID está presente
-            $controller->updateCategory($params[2]);
-        } else if ($params[1] == 'eliminar' && isset($params[2])) {
-            // Eliminar una categoría si el ID está presente
-            $controller->deleteCategory($params[2]);
+        if ($authController->checkLoggedIn()) {
+            if (!isset($params[1])) {
+                $controller->showCategorias();
+            } else if ($params[1] == 'editar' && isset($params[2])) {
+                $controller->updateCategory($params[2]);
+            } else if ($params[1] == 'eliminar' && isset($params[2])) {
+                $controller->deleteCategory($params[2]);
+            } else {
+                echo "Operación no válida.";
+            }
         } else {
-            echo "Operación no válida.";
+            header('Location: ' . BASE_URL . 'showlogin');
+            exit();
         }
         break;
     case 'about':
@@ -40,8 +42,13 @@ switch ($params[0]){
         $controller->showAbout();
         break;
     case 'agregarcategoria':
-        $controller = new CategoriaController();
-        $controller->agregarCategoria();
+        if ($authController->checkLoggedIn()) {
+            $controller = new CategoriaController();
+            $controller->agregarCategoria();
+        } else {
+            header('Location: ' . BASE_URL . 'showlogin');
+            exit();
+        }
         break;
     case 'categoriaitems':
         $controller = new CategoriaController();
@@ -65,7 +72,7 @@ switch ($params[0]){
 
 /*Tabla de routeo*/
 /* URL / destino
-/home   | showHome()
+/home   | showHome()s
 /about  | showAbout()
 /items/:id  | showItems($id)
 /categoria | showCategoria() */

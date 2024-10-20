@@ -1,14 +1,18 @@
 <?php
 require_once './app/models/categorias.model.php';
 require_once './app/view/categorias.view.php';
+require_once './app/controllers/auth.controller.php';
 
 class CategoriaController {
     private $model;
     private $view;
+    private $authController;
+
 
     public function __construct() {
         $this->model = new CategoriaModel();
         $this->view = new CategoriaView();
+        $this->authController = new AuthController();
     }
 
     public function showCategorias() {
@@ -23,17 +27,31 @@ class CategoriaController {
     }
 
     public function deleteCategory($id_categoria) {
+        if (!$this->authController->checkLoggedIn()) {
+            header('Location: ' . BASE_URL . '/login');
+            exit();
+        }
+
         $this->model->deleteCategory($id_categoria);
         header('Location: ' . BASE_URL . 'categorias');
         exit;
     }
 
     public function updateCategory($id_categoria) {
+        if (!$this->authController->checkLoggedIn()) {
+            header('Location: ' . BASE_URL . '/login');
+            exit();
+        }
+        
         $this->model->updateCategory($id_categoria);
         header('Location: ' . BASE_URL . 'categorias');
     }
 
     public function agregarCategoria() {
+        if (!$this->authController->checkLoggedIn()) {
+            header('Location: ' . BASE_URL . '/login');
+            exit();
+        }
         if (!isset($_POST['nombre']) || empty($_POST['nombre'])) {
             return $this->view->showError('Falta completar el título');
         }

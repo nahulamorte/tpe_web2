@@ -36,15 +36,18 @@ class ProductModel {
     }
     
     //agrega items
-    public function addItems($id_categoria, $nombre, $descripcion, $precio, $peso_neto,
-                            $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor){
-            $query = $this->db->prepare('INSERT INTO productos');
-            $query->execute([$id_categoria, $nombre, $descripcion, $precio, $peso_neto,
-             $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor]);
-    } 
+    public function addItems($id_categoria, $nombre, $descripcion, $precio, $peso_neto, $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor) {
+        // La consulta debe especificar las columnas en las que se insertarán los valores
+        $query = $this->db->prepare('INSERT INTO productos (id_categoria, nombre, descripcion, precio, peso_neto, fecha_empaquetado, fecha_vencimiento, stock, id_proveedor) 
+                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
+    
+        // Ejecutar la consulta pasando los valores correspondientes
+        return $query->execute([$id_categoria, $nombre, $descripcion, $precio, $peso_neto, $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor]);
+    }
+    
 
     //edita y actualiza los productos
-    public function update($id_producto, $id_categoria, $nombre, $descripcion, $precio, 
+    public function updateProduct($id_producto, $id_categoria, $nombre, $descripcion, $precio, 
                             $peso_neto, $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor) {
 
         // Comenzamos la consulta SQL

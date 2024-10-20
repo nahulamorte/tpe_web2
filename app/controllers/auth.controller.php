@@ -15,7 +15,6 @@ class AuthController {
     // Mostrar el formulario de login
     public function showLogin($error = null){
         $this->view->showLogin($error);  // Mostrar el formulario con un mensaje de error opcional
-    public function showLogin(){
         $this->view->showLogin();
     }
 
@@ -53,19 +52,17 @@ class AuthController {
 
             // Redirigir al home o dashboard del admin
             header('Location: ' . BASE_URL . '/admin');
-        } else {
-            // Mostrar error si las credenciales no coinciden
-            return $this->showLogin('Credenciales incorrectas');
-            //Redireccion al home.
-            header('Location: ' . BASE_URL);
-        }
-        else {
-            return $this->view->showLogin('Credenciales incorrectas');
-        }
+            } else {
+                // Mostrar error si las credenciales no coinciden
+                return $this->showLogin('Credenciales incorrectas');
+                //Redireccion al home.
+                header('Location: ' . BASE_URL);
+            }  else {
+                return $this->view->showLogin('Credenciales incorrectas');
+                }   
     }
 
     // Proceso de logout
-
     public function logout(){
         session_destroy();  // Destruir la sesión
         header('Location: ' . BASE_URL);  // Redirigir al home
