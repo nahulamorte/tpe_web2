@@ -1,8 +1,8 @@
 <?php
 
 class authView {
-
+    
     function showLogin(){
-        require 'form.phtml';
+        require 'templates/form.phtml';
     }
 }
