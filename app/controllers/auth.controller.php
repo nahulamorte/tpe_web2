@@ -14,9 +14,7 @@ class AuthController {
 
     // Mostrar el formulario de login
     public function showLogin($error = null){
-        $this->view->showLogin($error);  // Mostrar el formulario con un mensaje de error opcional
-    public function showLogin(){
-        $this->view->showLogin();
+        $this->view->showLogin($error);
     }
 
     public function login(){
@@ -44,20 +42,21 @@ class AuthController {
             $_SESSION['ID_USER'] = $userFromDB->id_usuario;
             $_SESSION['EMAIL_USER'] = $userFromDB->email;
             $_SESSION['LAST_ACTIVITY'] = time();
-        //User email: 'webadmin', password 'admin'  
-        if($userFromDB && password_verify($password, $userFromDB->password)){
-            session_start();
-            $_SESSION['ID_USER'] = $userFromDB->id_usuario;
-            $_SESSION['EMAIL_USER'] = $userFromDB->email;
-            $_SESSION['LAST_ACTIVITY'] = time();
+            //User email: 'webadmin', password 'admin'  
+            if($userFromDB && password_verify($password, $userFromDB->password)){
+                session_start();
+                $_SESSION['ID_USER'] = $userFromDB->id_usuario;
+                $_SESSION['EMAIL_USER'] = $userFromDB->email;
+                $_SESSION['LAST_ACTIVITY'] = time();
 
-            // Redirigir al home o dashboard del admin
-            header('Location: ' . BASE_URL . '/admin');
-        } else {
-            // Mostrar error si las credenciales no coinciden
-            return $this->showLogin('Credenciales incorrectas');
-            //Redireccion al home.
-            header('Location: ' . BASE_URL);
+                // Redirigir al home o dashboard del admin
+                header('Location: ' . BASE_URL . '/admin');
+            } else {
+                // Mostrar error si las credenciales no coinciden
+                return $this->showLogin('Credenciales incorrectas');
+                //Redireccion al home.
+                header('Location: ' . BASE_URL);
+            } 
         }
         else {
             return $this->view->showLogin('Credenciales incorrectas');

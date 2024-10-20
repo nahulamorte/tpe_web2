@@ -9,7 +9,7 @@ class ProductView {
         require 'templates/products.phtml';
     }
 
-    public function showProductDetail($id_producto){
-        require './templates/detail.phtml';
+    public function showProductDetail($product){
+        require 'templates/detail.phtml';
     }
 } 

@@ -18,20 +18,23 @@ $params = explode('/', $action);
 switch ($params[0]){
     case 'productos':
         $controller = new ProductController();
-        $controller->showProducts();
+        if (!isset($params[1])) 
+            $controller->showProducts();
+        else 
+            $controller->showProductDetail($params[1]);
         break;
     case 'categorias':
         $controller = new CategoriaController();
         if (!isset($params[1])) {
-            // Si no hay un segundo parámetro, se muestran las categorías
             $controller->showCategorias();
-        } else if ($params[1] == 'editar' && isset($params[2])) {
-            // Editar una categoría si el ID está presente
+        }
+        else if ($params[1] == 'editar' && isset($params[2]) && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $controller->updateCategory($params[2]);
-        } else if ($params[1] == 'eliminar' && isset($params[2])) {
-            // Eliminar una categoría si el ID está presente
+        }
+        else if ($params[1] == 'eliminar' && isset($params[2])) {
             $controller->deleteCategory($params[2]);
-        } else {
+        }
+        else {
             echo "Operación no válida.";
         }
         break;

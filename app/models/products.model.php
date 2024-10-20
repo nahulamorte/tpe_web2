@@ -1,19 +1,12 @@
 <?php
 require_once "./config.php";
-require_once "app/controllers/error.controller.php";
 
 class ProductModel {
-
-
     private $db;
-    private $controller;
 
     public function __construct(){
-        $this->db = new PDO ("mysql:host=".MYSQL_HOST . ";dbname=".MYSQL_DB . ";charset=utf8", MYSQL_USER, MYSQL_PASS);
-        $this->controller = new productController();
+        $this->db = $this->conect();
     }
-
-
 
     public function getProducts() {
         $query = $this->db->prepare('SELECT * FROM productos');
@@ -37,10 +30,10 @@ class ProductModel {
     
     //agrega items
     public function addItems($id_categoria, $nombre, $descripcion, $precio, $peso_neto,
-                            $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor){
-            $query = $this->db->prepare('INSERT INTO productos');
-            $query->execute([$id_categoria, $nombre, $descripcion, $precio, $peso_neto,
-             $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor]);
+                            $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor) {
+        $query = $this->db->prepare('INSERT INTO productos');
+        $query->execute([$id_categoria, $nombre, $descripcion, $precio, $peso_neto,
+        $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor]);
     } 
 
     //edita y actualiza los productos
@@ -105,7 +98,10 @@ class ProductModel {
         // Preparamos y ejecutamos la consulta
         $query = $this->db->prepare($sql);
         $query->execute($params);
+
     }
 
-
+    private function conect() {
+        return new PDO("mysql:host=".MYSQL_HOST . ";dbname=".MYSQL_DB .";charset=utf8", MYSQL_USER, MYSQL_PASS);
+    }
 }

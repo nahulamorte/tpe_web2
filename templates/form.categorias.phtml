@@ -18,15 +18,14 @@
     </div>
 </div>
 
-<!-- Formulario para actualizar una categoría -->
 <div class="container mt-5">
     <div class="card shadow-sm border-0">
         <div class="card-body">
             <h2 class="card-title mb-4">Actualizar Categoría</h2>
-            <form action="updatecategory" method="post">
+            <form action="editar/<?php echo $categorias[0]->id; ?>" method="post" id="formCategoria">
                 <div class="mb-3">
                     <label for="categoria" class="form-label">Seleccionar Categoría</label>
-                    <select name="categoria" id="categoria" class="form-select">
+                    <select name="categoria" id="categoria" class="form-select" onchange="document.getElementById('formCategoria').action = 'editar/' + this.value;">
                         <?php foreach ($categorias as $categoria) : ?>
                             <option value="<?php echo $categoria->id; ?>">
                                 <?php echo $categoria->nombre; ?>
@@ -34,12 +33,12 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="mb-3">¿
-                    <label for="nombreActualizar" class="form-label">Nuevo Nombre de la categoría</label>
+                <div class="mb-3">
+                    <label for="nombreActualizar" class="form-label">Nuevo nombre</label>
                     <input type="text" name="nombre" id="nombreActualizar" class="form-control" required />
                 </div>
                 <div class="mb-3">
-                    <label for="descripcionActualizar" class="form-label">Nueva Descripción</label>
+                    <label for="descripcionActualizar" class="form-label">Nueva descripción</label>
                     <input type="text" name="descripcion" id="descripcionActualizar" class="form-control" required />
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Actualizar</button>
