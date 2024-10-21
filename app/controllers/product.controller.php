@@ -31,7 +31,6 @@ require 'app/view/products.view.php';
 
             if ($product) {
                 $this->view->showProductDetail($id_producto);
-            } else {
             }
         }
 

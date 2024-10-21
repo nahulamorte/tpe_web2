@@ -105,6 +105,11 @@ CREATE TABLE `usuarios` (
 --
 -- Índices para tablas volcadas
 --
+INSERT INTO usuarios (Email, Password) 
+VALUES 
+('webadmin', 'admin'),
+('nahuel', 'nahuel123'),
+('mateo', 'mateo123');
 
 --
 -- Indices de la tabla `categorias`

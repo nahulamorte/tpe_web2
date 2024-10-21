@@ -22,6 +22,7 @@ switch ($params[0]){
         break;
     case 'categorias':
         $controller = new CategoriaController();
+        $authController = new AuthController();
 
         if (!isset($params[1])) {
             $controller->showCategorias();
@@ -50,6 +51,7 @@ switch ($params[0]){
         $controller->showAbout();
         break;
     case 'agregarcategoria':
+        $authController = new AuthController();
         if ($authController->checkLoggedIn()) {
             $controller = new CategoriaController();
             $controller->agregarCategoria();
@@ -61,6 +63,10 @@ switch ($params[0]){
     case 'categoriaitems':
         $controller = new CategoriaController();
         $controller->showItemsByCategory($params[1]);
+        break;
+    case 'detallesproductos':
+        $controller = new productController();
+        $controller->showProductDetail($params[1]);
         break;
     case 'showlogin':
         $controller = new AuthController();
