@@ -22,17 +22,29 @@ switch ($params[0]){
         break;
     case 'categorias':
         $controller = new CategoriaController();
-            if (!isset($params[1])) {
-                $controller->showCategorias();
-            } else if ($params[1] == 'editar' && isset($params[2])) {
+
+        if (!isset($params[1])) {
+            $controller->showCategorias();
+        } 
+        else if ($params[1] == 'editar' && isset($params[2])) {
+            if ($authController->checkAdmin()) {
                 $controller->updateCategory($params[2]);
-            } else if ($params[1] == 'eliminar' && isset($params[2])) {
+            } else {
+                echo "Acceso denegado. Solo los administradores pueden editar categorías.";
+            }
+        } 
+        else if ($params[1] == 'eliminar' && isset($params[2])) {
+            if ($authController->checkAdmin()) {
                 $controller->deleteCategory($params[2]);
             } else {
-                echo "Operación no válida.";
+                echo "Acceso denegado. Solo los administradores pueden eliminar categorías.";
             }
-  
+        } 
+        else {
+            echo "Operación no válida.";
+        }
         break;
+
     case 'about':
         $controller = new AboutController();
         $controller->showAbout();
