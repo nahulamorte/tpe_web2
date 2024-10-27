@@ -1,13 +1,18 @@
 <?php
-require_once './app/controllers/product.controller.php';
-require_once './app/controllers/categoria.controller.php';
-require_once './app/controllers/auth.controller.php';
-require_once './app/controllers/about.controller.php';
+
+require_once 'app/controller/product.controller.php';
+require_once 'app/controller/categoria.controller.php';
+require_once 'app/controller/about.controller.php';
+require_once 'app/controller/auth.controller.php';
+require_once 'libs/response.php';
+require_once 'app/middleware/session.auth.middleware.php';
+// require_once 'app/middlewares/verify.auth.middleware.php';
+
+define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
+
+$res = new Response();
 
 $action = 'productos';
-
-// base_url para redirecciones y base tag
-define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
 if (!empty($_GET['action'])) { 
     $action = $_GET['action'];
@@ -15,72 +20,66 @@ if (!empty($_GET['action'])) {
 
 $params = explode('/', $action);
 
-switch ($params[0]){
+switch($params[0]) {
     case 'productos':
-        $controller = new ProductController();
-        $controller->showProducts();
+        sessionAuthMiddleware($res);
+        $product_controller = new ProductController($res);
+        if (isset($params[1])) {
+            switch($params[1]) {
+                case 'ver':
+                    $product_controller->verDetalle($params[2]);
+                    break;
+                case 'editar':
+                    $product_controller->actualizarProducto($params[2]); // le paso el id el resto sera recibido por get o post
+                    break;
+                case 'eliminar':
+                    $product_controller->eliminarProducto($params[2]);
+                    break;
+            }
+        } else {
+            $product_controller->mostrarProductos();
+        }
         break;
     case 'categorias':
-        $controller = new CategoriaController();
-        $authController = new AuthController();
-
-        if (!isset($params[1])) {
-            $controller->showCategorias();
-        } 
-        else if ($params[1] == 'editar' && isset($params[2])) {
-            if ($authController->checkAdmin()) {
-                $controller->updateCategory($params[2]);
-            } else {
-                echo "Acceso denegado. Solo los administradores pueden editar categorías.";
+        sessionAuthMiddleware($res);
+        $categoria_controller = new CategoriaController($res);
+        // Si tengo un parametro extra verifico segun el caso
+        if (isset($params[1])) {
+            switch($params[1]) {
+                case 'agregar':
+                    $categoria_controller->agregarCategoria(); // lo necesario es obtenido por POST
+                    break;
+                case 'actualizar':
+                    $categoria_controller->actualizarCategoria($params[2]); // paso el id a actualizar
+                    break;
+                case 'eliminar':
+                    $categoria_controller->eliminarCategoria($params[2]); // paso el id a eliminar
+                    break;
+                default:
+                    $product_controller = new ProductController($res);
+                    $product_controller->mostrarProductosPorCategoria($params[1]); 
+                    break;
             }
-        } 
-        else if ($params[1] == 'eliminar' && isset($params[2])) {
-            if ($authController->checkAdmin()) {
-                $controller->deleteCategory($params[2]);
-            } else {
-                echo "Acceso denegado. Solo los administradores pueden eliminar categorías.";
-            }
-        } 
-        else {
-            echo "Operación no válida.";
-        }
-        break;
-
-    case 'about':
-        $controller = new AboutController();
-        $controller->showAbout();
-        break;
-    case 'agregarcategoria':
-        $authController = new AuthController();
-        if ($authController->checkLoggedIn()) {
-            $controller = new CategoriaController();
-            $controller->agregarCategoria();
         } else {
-            header('Location: ' . BASE_URL . 'showlogin');
-            exit();
+            $categoria_controller->mostrarCategorias();
         }
         break;
-    case 'categoriaitems':
-        $controller = new CategoriaController();
-        $controller->showItemsByCategory($params[1]);
+    case 'about':
+        $about_controller = new AboutController($res);
+        $about_controller->mostrarAbout();
         break;
-    case 'detallesproductos':
-        $controller = new productController();
-        $controller->showProductDetail($params[1]);
+    case 'showlogin': // muestra el formulario de logeo
+        $auth_controller = new AuthController();
+        $auth_controller->showLogin();
         break;
-    case 'showlogin':
-        $controller = new AuthController();
-        $controller->showLogin();
-        break;
-    case 'login':
-        $controller = new AuthController();
-        $controller->login();
+    case 'login': // verifica el inicio de sesion
+        $auth_controller = new AuthController();
+        $auth_controller->login();
         break;
     case 'logout':
-        $controller = new AuthController();
-        $controller->logout();
+        $auth_controller = new AuthController();
+        $auth_controller->logout();
         break;
     default:
         break;
 }
-

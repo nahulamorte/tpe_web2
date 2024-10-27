@@ -1,7 +1,13 @@
 <?php
 
 class AboutView {
-    public function showAbout() {
+    private $user = null;
+    
+    public function __construct($user) {
+        $this->user = $user;
+    }
+
+    public function mostrarAbout() {
         require 'templates/about.phtml';
     }
 }

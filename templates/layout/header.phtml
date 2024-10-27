@@ -14,19 +14,24 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
+                <?php if($this->user): ?>
+                    <span class="navbar-text"><?= $this->user->email ?></span>
+                <?php endif; ?>
+                
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="showlogin">Iniciar sesion</a>
+                            <a class="nav-link" href="<?= BASE_URL . 'categorias' ?>">Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="categorias">Categorias</a>
+                            <a class="nav-link" href="<?= BASE_URL . 'productos' ?>">Productos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="productos">Productos</a>
+                            <a class="nav-link" href="<?= BASE_URL . 'about' ?>">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about">About</a>
+                            <a class="nav-link logout-btn" href="<?= BASE_URL . 'logout' ?>">Logout</a>
                         </li>
                     </ul>
                 </div>

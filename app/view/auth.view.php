@@ -1,13 +1,14 @@
 <?php
 
-class authView {
+class AuthView {
+    private $user = null;
 
-    function ShowLocation($action){
-        header("Location: ".BASE_URL.$action);
+    public function showLogin($error = '') {
+        require 'templates/formularios/formlogin.phtml';
     }
 
-    
-    function showLogin(){
-        require 'templates/form.phtml';
-    }
+    // TODO: IMPLEMENTAR registro
+    // public function showSignup($error = '') {
+    //     require 'templates/formularios/formsignup.phtml';
+    // }
 }
