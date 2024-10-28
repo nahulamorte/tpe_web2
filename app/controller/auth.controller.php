@@ -17,25 +17,25 @@ class AuthController {
 
     public function login() {
         // recibo mis datos por post
-        if (!isset($_POST['email']) || empty($_POST['email'])) {
-            return $this->view->showLogin('Falto completar el campo email');
+        if (!isset($_POST['user']) || empty($_POST['user'])) {
+            return $this->view->showLogin('Falto completar el campo user');
         }
 
         if (!isset($_POST['password']) || empty($_POST['password'])) {
             return $this->view->showLogin('Falto completar el campo contraseña');   
         }
 
-        $email = $_POST['email'];
+        $user = $_POST['user'];
         $password = $_POST['password'];
 
-        $userDB = $this->model->getUserByEmail($email);
+        $userDB = $this->model->getUserByUserName($user);
 
         if ($userDB && password_verify($password, $userDB->password)) {
             // guarda en la sesion el id del usuario
             session_start();
             $_SESSION['ID'] = $userDB->id_usuario;
-            $_SESSION['EMAIL'] = $userDB->email;
-            $_SESSION['LAST_ACTIVITY'] = time();
+            $_SESSION['USUARIO'] = $userDB->usuario;
+            $_SESSION['ROL'] = $userDB->rol;
     
             header('Location: ' . BASE_URL);
         } else {

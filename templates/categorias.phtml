@@ -19,7 +19,7 @@
                             </div>
                             <div class="card-footer d-flex justify-content-around">
                                 <a href="categorias/<?= $categoria->id_categoria; ?>" class="btn btn-outline-primary btn-sm">Ver productos</a>
-                                <?php if ($this->user): ?>
+                                <?php if ($this->user && $this->user->rol === 'admin'): ?>
                                     <a href="categorias/eliminar/<?= $categoria->id_categoria; ?>" class="btn btn-outline-danger btn-sm">Eliminar</a>
                                     <a href="categorias/actualizar/<?= $categoria->id_categoria; ?>" class="btn btn-outline-warning btn-sm">Editar</a>
                                 <?php endif; ?>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary btn-lg">Agregar</button>
-                    </div>
+                    </div>  
                 </form>
             </div>
         <?php endif; ?>

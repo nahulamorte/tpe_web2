@@ -1,7 +1,7 @@
 <?php
 
 class CategoriaView {
-    private $user = null;
+    public $user = null;
     
     public function __construct($user) {
         $this->user = $user;
