@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2024 a las 16:52:10
+-- Tiempo de generación: 28-10-2024 a las 01:57:37
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -38,14 +38,16 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id_categoria`, `nombre`, `descripcion`) VALUES
-(10, 'Alimento para Perro', 'Variedad de alimentos secos y húmedos para perros, adaptados a diferentes razas, tamaños y necesidades nutricionales.'),
-(11, 'Alimento para Gato', 'Comida balanceada para gatos, incluyendo opciones para gatos adultos, cachorros, y fórmulas específicas para cuidado de la salud.'),
-(12, 'Juguetes para Mascotas', 'Diversión garantizada con una selección de juguetes para perros y gatos, diseñados para estimular y entretener a tu mascota.'),
-(13, 'Accesorios de Higiene', 'Artículos de cuidado e higiene como champús, cepillos, cortaúñas y otros productos para mantener a tu mascota limpia y saludable.'),
-(14, 'Camas y Mantas', 'Camas cómodas y mantas suaves para el descanso y confort de tus mascotas, disponibles en diferentes tamaños y materiales.'),
-(15, 'Correas y Collares', 'Variedad de correas y collares ajustables para perros y gatos, disponibles en varios estilos y colores.'),
-(16, 'Ropa para Mascotas', 'Prendas de vestir para perros y gatos, incluyendo abrigos, camisetas y suéteres para mantenerlos cálidos y a la moda.'),
-(17, 'Transportadoras y Jaulas', 'Transportadoras y jaulas seguras para viajes y paseos, disponibles en varios tamaños para adaptarse a todo tipo de mascotas.');
+(26, 'Alimento para Perros', 'Alimentos secos y húmedos para perros de todas las razas y tamaños.'),
+(27, 'Alimento para Gatos', 'Variedad de comida para gatos, incluyendo opciones premium y dietéticas.'),
+(28, 'Juguetes para Mascotas', 'Diversos tipos de juguetes interactivos y de entretenimiento para mascotas.'),
+(29, 'Camas y Colchones', 'Camas cómodas y duraderas para perros y gatos de todas las edades.'),
+(30, 'Accesorios para Paseo', 'Correas, collares y arneses para pasear de forma segura a tus mascotas.'),
+(31, 'Productos de Higiene', 'Shampoos, acondicionadores y artículos de limpieza para mantener la higiene de las mascotas.'),
+(32, 'Ropa para Mascotas', 'Prendas y accesorios para proteger y vestir a tus mascotas con estilo.'),
+(33, 'Accesorios para Acuarios', 'Equipos y decoraciones para acuarios de agua dulce y salada.'),
+(34, 'Jaulas y Transportadoras', 'Jaulas y transportadoras seguras y cómodas para el traslado de mascotas.'),
+(35, 'Alimento para Aves', 'Comida variada y equilibrada para aves domésticas y exóticas.');
 
 -- --------------------------------------------------------
 
@@ -65,6 +67,23 @@ CREATE TABLE `productos` (
   `stock` int(11) NOT NULL,
   `id_proveedor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id_producto`, `id_categoria`, `nombre`, `descripcion`, `precio`, `peso_neto`, `fecha_empaquetado`, `fecha_vencimiento`, `stock`, `id_proveedor`) VALUES
+(29, 30, 'Collar rosa', 'Collar rosa para darle el estilo que necesito tu perro', 10000, 1, '2024-10-27', NULL, 10, 1),
+(30, 26, 'Alimento Seco Perro Adulto', 'Alimento balanceado para perros adultos de todas las razas', 1500, 3, '2024-10-01', '2025-10-01', 30, 1),
+(31, 27, 'Comida Húmeda Gato', 'Comida húmeda de alta calidad para gatos adultos', 800, 0, '2024-09-15', NULL, 50, 2),
+(32, 28, 'Pelota Interactiva para Mascot', 'Pelota de goma para entretener a tu mascota por horas', 500, 0, '2024-08-20', NULL, 100, 3),
+(33, 29, 'Cama Acolchonada para Perros', 'Cama de tamaño mediano para perros de hasta 20 kg', 2000, 3, '2024-07-10', NULL, 20, 4),
+(34, 30, 'Collar Rosa', 'Collar rosa para darle el estilo que necesita tu perro', 10000, 1, '2024-10-27', NULL, 10, 1),
+(35, 31, 'Shampoo para Mascotas', 'Shampoo suave para el pelaje de perros y gatos', 1200, 0, '2024-06-05', '2025-06-05', 60, 5),
+(36, 32, 'Abrigo para Perro', 'Abrigo de lana para perro, ideal para el invierno', 1500, 0, '2024-05-01', NULL, 15, 2),
+(37, 33, 'Decoración de Acuario', 'Piedras decorativas para acuarios de agua dulce', 300, 2, '2024-03-25', NULL, 100, 3),
+(38, 34, 'Transportadora Mediana', 'Transportadora de plástico resistente para gatos y perros pequeños', 5000, 2, '2024-02-10', NULL, 5, 4),
+(39, 35, 'Alimento para Canarios', 'Alimento equilibrado para canarios y aves pequeñas', 350, 0, '2024-01-05', '2025-01-05', 50, 1);
 
 -- --------------------------------------------------------
 
@@ -99,8 +118,15 @@ INSERT INTO `proveedores` (`id_proveedor`, `nombre`, `telefono`, `direccion`) VA
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `email`, `password`) VALUES
+(4, 'alonso@gmail.com', '123456');
 
 --
 -- Índices para tablas volcadas
@@ -140,13 +166,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -158,7 +184,7 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas

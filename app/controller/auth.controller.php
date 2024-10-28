@@ -28,16 +28,15 @@ class AuthController {
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $user = $this->model->getUser($email);
+        $userDB = $this->model->getUserByEmail($email);
 
-        if ($user && password_verify($password, $user->password)) {
+        if ($userDB && password_verify($password, $userDB->password)) {
             // guarda en la sesion el id del usuario
             session_start();
-            $_SESSION['ID_USER'] = $user->id;
-            $_SESSION['EMAIL_USER'] = $user->email;
+            $_SESSION['ID'] = $userDB->id_usuario;
+            $_SESSION['EMAIL'] = $userDB->email;
             $_SESSION['LAST_ACTIVITY'] = time();
     
-            // Redirijo al home
             header('Location: ' . BASE_URL);
         } else {
             return $this->view->showLogin('Credenciales incorrectas');
@@ -48,6 +47,6 @@ class AuthController {
         session_start(); // Va a buscar la cookie
         session_destroy(); // Borra la cookie que se buscó
         
-        header('Location: ' . BASE_URL);
+        header('Location: ' . BASE_URL . 'showlogin');
     }
 }

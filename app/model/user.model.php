@@ -7,12 +7,12 @@ class UserModel {
         $this->db = $this->conectardb();
     }
 
-    public function getUser($id_usuario) {
-        $query = $this->db->prepare('SELECT * FROM usuarios WHERE id_usuario = ?');
-        $query->execute([$id_usuario]);
+    public function getUserByEmail($email) {
+        $query = $this->db->prepare('SELECT * FROM usuarios WHERE email = ?');
+        $query->execute([$email]);
         
         // devuelvo el usuario
-        return $query->fetch(PDO::FETCH_OBJ); 
+        return $query->fetch(PDO::FETCH_OBJ);
     }
 
     private function conectardb() {

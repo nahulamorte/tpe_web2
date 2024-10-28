@@ -6,7 +6,7 @@ require_once 'app/controller/about.controller.php';
 require_once 'app/controller/auth.controller.php';
 require_once 'libs/response.php';
 require_once 'app/middleware/session.auth.middleware.php';
-// require_once 'app/middlewares/verify.auth.middleware.php';
+require_once 'app/middleware/verify.auth.middleware.php';
 
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
@@ -22,9 +22,11 @@ $params = explode('/', $action);
 
 switch($params[0]) {
     case 'productos':
-        sessionAuthMiddleware($res);
         $product_controller = new ProductController($res);
         if (isset($params[1])) {
+            sessionAuthMiddleware($res);
+            verifyAuthMiddleware($res);
+
             switch($params[1]) {
                 case 'ver':
                     $product_controller->verDetalle($params[2]);
@@ -41,10 +43,12 @@ switch($params[0]) {
         }
         break;
     case 'categorias':
-        sessionAuthMiddleware($res);
         $categoria_controller = new CategoriaController($res);
         // Si tengo un parametro extra verifico segun el caso
         if (isset($params[1])) {
+            sessionAuthMiddleware($res);
+            verifyAuthMiddleware($res);
+            
             switch($params[1]) {
                 case 'agregar':
                     $categoria_controller->agregarCategoria(); // lo necesario es obtenido por POST
