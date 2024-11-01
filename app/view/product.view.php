@@ -18,4 +18,8 @@ class ProductView {
     public function mostrarProductosPorCategoria($productos) {
         require 'templates/productos.phtml';
     }
+
+    public function showError($error) {
+        require 'templates/error.phtml';
+    }
 }

@@ -53,7 +53,7 @@ class CategoriaController {
         }
 
         $nombre = htmlspecialchars($_POST['nombre']);
-        $descripcion = htmlspecialschars($_POST['descripcion']);
+        $descripcion = htmlspecialchars($_POST['descripcion']);
 
         $this->model->actualizarCategoria($id_categoria, $nombre, $descripcion);
         $this->redirigir('categorias');

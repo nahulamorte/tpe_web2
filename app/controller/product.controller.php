@@ -19,11 +19,6 @@ class ProductController {
     public function mostrarProductosPorCategoria($id_categoria) {
         $productos = $this->model->getProductosPorCategoria($id_categoria);
 
-        // if (!$productos) {
-        //     $this->view->showError('No hay productos pertenecientes a esa categoria');
-        //     return;
-        // }
-
         $this->view->mostrarProductosPorCategoria($productos);
     }
 
@@ -66,6 +61,30 @@ class ProductController {
 
         $this->model->eliminarProducto($id_producto);
         $this->redirigir('productos');
+    }
+
+    public function actualizarProducto($id_categoria){
+        if(!isset($_POST['id_categoria']) && !isset($_POST['nombre']) && !isset($_POST['descripcion']) 
+            && !isset($_POST['precio']) && !isset($_POST['peso_neto']) && !isset($_POST['fecha_empaquetado']) 
+            && !isset($_POST['fecha_vencimiento']) && !isset($_POST['stock']) && !isset($_POST['proveedor'])){
+                $this->view->showError("Faltan datos");
+            } 
+
+            $id_categoria = $_POST['id_categoria'];
+            $nombre = $_POST['nombre'];
+            $descripcion = $_POST['descripcion'];
+            $precio = $_POST['precio'];
+            $peso_neto = $_POST['peso_neto'];
+            $fecha_empaquetado = $_POST['fecha_empaquetado'];
+            $fecha_vencimiento = $_POST['fecha_vencimiento'];
+            $stock = $_POST['stock'];
+            $proveedor = $_POST['proveedor'];
+
+            $this->model->actualizarProducto($id_categoria, $nombre, $descripcion, $precio, $peso_neto,
+                                             $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor);
+                                             
+            $this->redirigir('productos');
+
     }
 
     private function comprobarSiExiste($id_producto) {

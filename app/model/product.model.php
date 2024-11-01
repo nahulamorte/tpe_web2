@@ -30,6 +30,16 @@ class ProductModel {
         return $query->fetch(PDO::FETCH_OBJ);
     }
 
+    public function agregarProducto($id_categoria, $nombre, $descripcion, $precio, $peso_neto, $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor){
+        $query = $this->db->prepare('INSERT INTO productos 
+        (id_categoria, nombre, precio, peso_neto, fecha_empaquetado, fecha_vencimiento, stock, id_proveedor) VALUES (?,?,?,?,?,?,?,?)');
+        $query->execute([$id_categoria, $nombre, $descripcion, $precio, $peso_neto, $fecha_empaquetado, $fecha_vencimiento, $stock,$proveedor]);
+    }
+
+    public function actualizarProducto($id_categoria, $nombre, $descripcion, $precio, $peso_neto, $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor){
+        
+    }
+
     public function eliminarProducto($id_producto) {
         $query = $this->db->prepare('DELETE FROM productos WHERE id_producto = ?');
         $query->execute([$id_producto]);
