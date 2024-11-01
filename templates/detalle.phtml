@@ -45,12 +45,15 @@
                 </div>
 
                 <div class="card-footer d-flex justify-content-around">
+                    <?php if ($this->user && $this->user->rol === 'admin'): ?>
                     <a href="<?= BASE_URL ?>/productos/eliminar/<?= $producto->id_producto; ?>" class="btn btn-outline-danger">
                         Eliminar
                     </a>
+                    <?php else: ?>
                     <a href="contacto" class="btn btn-primary">
                         Contactar
                     </a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

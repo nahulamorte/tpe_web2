@@ -36,7 +36,7 @@ class AuthController {
             $_SESSION['ID'] = $userDB->id_usuario;
             $_SESSION['USUARIO'] = $userDB->usuario;
             $_SESSION['ROL'] = $userDB->rol;
-    
+
             header('Location: ' . BASE_URL);
         } else {
             return $this->view->showLogin('Credenciales incorrectas');

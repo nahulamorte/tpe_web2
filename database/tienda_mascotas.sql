@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2024 a las 01:57:37
+-- Tiempo de generación: 28-10-2024 a las 19:52:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -39,7 +39,6 @@ CREATE TABLE `categorias` (
 
 INSERT INTO `categorias` (`id_categoria`, `nombre`, `descripcion`) VALUES
 (26, 'Alimento para Perros', 'Alimentos secos y húmedos para perros de todas las razas y tamaños.'),
-(27, 'Alimento para Gatos', 'Variedad de comida para gatos, incluyendo opciones premium y dietéticas.'),
 (28, 'Juguetes para Mascotas', 'Diversos tipos de juguetes interactivos y de entretenimiento para mascotas.'),
 (29, 'Camas y Colchones', 'Camas cómodas y duraderas para perros y gatos de todas las edades.'),
 (30, 'Accesorios para Paseo', 'Correas, collares y arneses para pasear de forma segura a tus mascotas.'),
@@ -75,15 +74,13 @@ CREATE TABLE `productos` (
 INSERT INTO `productos` (`id_producto`, `id_categoria`, `nombre`, `descripcion`, `precio`, `peso_neto`, `fecha_empaquetado`, `fecha_vencimiento`, `stock`, `id_proveedor`) VALUES
 (29, 30, 'Collar rosa', 'Collar rosa para darle el estilo que necesito tu perro', 10000, 1, '2024-10-27', NULL, 10, 1),
 (30, 26, 'Alimento Seco Perro Adulto', 'Alimento balanceado para perros adultos de todas las razas', 1500, 3, '2024-10-01', '2025-10-01', 30, 1),
-(31, 27, 'Comida Húmeda Gato', 'Comida húmeda de alta calidad para gatos adultos', 800, 0, '2024-09-15', NULL, 50, 2),
 (32, 28, 'Pelota Interactiva para Mascot', 'Pelota de goma para entretener a tu mascota por horas', 500, 0, '2024-08-20', NULL, 100, 3),
 (33, 29, 'Cama Acolchonada para Perros', 'Cama de tamaño mediano para perros de hasta 20 kg', 2000, 3, '2024-07-10', NULL, 20, 4),
 (34, 30, 'Collar Rosa', 'Collar rosa para darle el estilo que necesita tu perro', 10000, 1, '2024-10-27', NULL, 10, 1),
 (35, 31, 'Shampoo para Mascotas', 'Shampoo suave para el pelaje de perros y gatos', 1200, 0, '2024-06-05', '2025-06-05', 60, 5),
 (36, 32, 'Abrigo para Perro', 'Abrigo de lana para perro, ideal para el invierno', 1500, 0, '2024-05-01', NULL, 15, 2),
 (37, 33, 'Decoración de Acuario', 'Piedras decorativas para acuarios de agua dulce', 300, 2, '2024-03-25', NULL, 100, 3),
-(38, 34, 'Transportadora Mediana', 'Transportadora de plástico resistente para gatos y perros pequeños', 5000, 2, '2024-02-10', NULL, 5, 4),
-(39, 35, 'Alimento para Canarios', 'Alimento equilibrado para canarios y aves pequeñas', 350, 0, '2024-01-05', '2025-01-05', 50, 1);
+(38, 34, 'Transportadora Mediana', 'Transportadora de plástico resistente para gatos y perros pequeños', 5000, 2, '2024-02-10', NULL, 5, 4);
 
 -- --------------------------------------------------------
 
@@ -117,7 +114,8 @@ INSERT INTO `proveedores` (`id_proveedor`, `nombre`, `telefono`, `direccion`) VA
 
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `usuario` varchar(100) NOT NULL,
+  `rol` varchar(20) NOT NULL,
   `password` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -125,8 +123,9 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `email`, `password`) VALUES
-(4, 'alonso@gmail.com', '123456');
+INSERT INTO `usuarios` (`id_usuario`, `usuario`, `rol`, `password`) VALUES
+(9, 'webadmin', 'admin', '$2y$10$uOAwkc.9KdjLc27nxVr3pOnk.4JjY2rZahkaIkCmL9Rm0lqP6PP8G'),
+(10, 'mateo', 'user', '$2y$10$qeSJsTlft/KJ.BR3hhTfe.qk.pT.GTeQb.Y3DRykcghZyCPGoeJDG');
 
 --
 -- Índices para tablas volcadas
@@ -156,7 +155,8 @@ ALTER TABLE `proveedores`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuario`);
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD UNIQUE KEY `usuario` (`usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -184,7 +184,7 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

@@ -17,6 +17,9 @@
                 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+                        <?php if ($this->user): ?>
+                            <span class="navbar-text ms-3"><?= $this->user->usuario ?></span>
+                        <?php endif; ?>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= BASE_URL . 'categorias' ?>">Categorias</a>
                         </li>
@@ -36,9 +39,6 @@
                             </li>
                         <?php endif; ?>
                     </ul>
-                    <?php if ($this->user): ?>
-                        <span class="navbar-text ms-3"><?= $user->email ?></span>
-                    <?php endif; ?>
                 </div>
             </div>
         </nav>

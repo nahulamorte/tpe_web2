@@ -6,7 +6,6 @@
             $res->user->id_usuario = $_SESSION['ID'];
             $res->user->usuario = $_SESSION['USUARIO'];
             $res->user->rol = $_SESSION['ROL'];
-            $res->user->isAdmin = ($_SESSION['ROL'] === 'admin'); 
             return;
         }
     }
