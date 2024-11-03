@@ -30,15 +30,21 @@ switch($params[0]) {
                 case 'ver':
                     $product_controller->verDetalle($params[2]);
                     break;
-                case 'editar':
+                case 'actualizar':
                     $product_controller->actualizarProducto($params[2]); // le paso el id el resto sera recibido por get o post
+                    break;
+                case 'productupdate':
+                    $product_controller->showProductUpdate($params[2]);
                     break;
                 case 'eliminar':
                     $product_controller->eliminarProducto($params[2]);
                     break;
+                case 'agregar':
+                    $product_controller->agregarProducto();
+                    break;
             }
         } else {
-            $product_controller->mostrarProductos();
+            $product_controller->mostrarProductos($res);
         }
         break;
     case 'categorias':
@@ -57,13 +63,16 @@ switch($params[0]) {
                 case 'eliminar':
                     $categoria_controller->eliminarCategoria($params[2]); // paso el id a eliminar
                     break;
-                default:
+                case 'categoriaupdate':
+                    $categoria_controller->showFormUpdate($params[2]); // recibe el id de la categoria
+                    break;
+                case 'verproductoscategoria':
                     $product_controller = new ProductController($res);
-                    $product_controller->mostrarProductosPorCategoria($params[1]); 
+                    $product_controller->mostrarProductosPorCategoria($params[2]); 
                     break;
             }
         } else {
-            $categoria_controller->mostrarCategorias();
+            $categoria_controller->mostrarCategorias($res);
         }
         break;
     case 'about':

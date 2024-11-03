@@ -2,92 +2,109 @@
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Nuestros productos</h1>
+    
+    <?php if (empty($productos)): ?>
+        <div class="alert alert-warning text-center" role="alert">
+            No hay productos disponibles.
+        </div>
+    <?php else: ?>
+        <div class="row">
+            <?php foreach ($productos as $producto): ?>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h5 class="card-title mb-0"><?= $producto->nombre; ?></h5>
+                        </div>
 
-    <div class="row">
-        <?php foreach ($productos as $producto): ?>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card shadow-sm h-100">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h5 class="card-title mb-0"><?= $producto->nombre; ?></h5>
-                    </div>
+                        <div class="card-body d-flex flex-column">
+                            <p class="card-text text-muted"><?= $producto->descripcion; ?></p>
+                            <p class="card-text text-muted">Precio final: <?= $producto->precio; ?></p>
+                            <p class="card-text text-muted">Categoria: <?= $producto->nombreCategoria; ?></p>
+                        </div>
 
-                    <div class="card-body d-flex flex-column">
-                        <p class="card-text text-muted">
-                            <?= $producto->descripcion; ?>
-                        </p>
-                        <p class="card-text text-muted">
-                            Precio final: <?= $producto->precio; ?>
-                        </p>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-around">
-                        <a href="<?= BASE_URL; ?>/productos/ver/<?= $producto->id_producto; ?>" class="btn btn-outline-primary btn-sm">
-                            Ver detalles
-                        </a>
-                        <?php if ($this->user && $this->user->rol === 'admin'): ?>
-                            <a href="<?= BASE_URL; ?>/productos/eliminar/<?= $producto->id_producto; ?>" class="btn btn-outline-danger btn-sm">
-                                Eliminar
+                        <div class="card-footer d-flex justify-content-around">
+                            <a href="<?= BASE_URL; ?>/productos/ver/<?= $producto->id_producto; ?>" class="btn btn-outline-primary btn-sm">
+                                Ver detalles
                             </a>
-                        <?php endif; ?>
+                            <?php if ($this->user && $this->user->rol === 'admin'): ?>
+                                <a href="productos/eliminar/<?= $producto->id_producto; ?>" class="btn btn-outline-danger btn-sm">
+                                    Eliminar
+                                </a>
+                                <a href="productos/productupdate/<?= $producto->id_producto; ?>" class="btn btn-outline-warning btn-sm">
+                                    Editar
+                                </a>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->user): ?>
+        <div class="col-lg-4 mx-auto mt-4"> <!-- Centrar el formulario debajo de los productos -->
+            <h2 class="text-center mb-4 p-3">Agregar producto</h2>
+            <form action="<?= BASE_URL ?>/productos/agregar" method="POST" class="p-4 shadow rounded bg-light">
+                <div class="mb-3">
+                    <label for="id_categoria" class="form-label">Categoría</label>
+                    <select name="id_categoria" id="id_categoria" class="form-select">
+                        <?php foreach($categorias as $categoria) : ?>
+                            <option value="<?= $categoria->id_categoria ?>"><?= $categoria->nombre ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="precio" name="precio" step="0.01" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="peso_neto" class="form-label">Peso Neto (kg)</label>
+                    <input type="number" class="form-control" id="peso_neto" name="peso_neto" step="0.01" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fecha_empaquetado" class="form-label">Fecha de Empaquetado</label>
+                    <input type="date" class="form-control" id="fecha_empaquetado" name="fecha_empaquetado" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
+                    <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="stock" class="form-label">Stock</label>
+                    <input type="number" class="form-control" id="stock" name="stock" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_proveedor" class="form-label">Proveedor</label>
+                    <select name="id_proveedor" id="id_proveedor" class="form-select">
+                        <option value="" disabled selected>Selecciona un proveedor</option>
+                        <?php foreach($proveedores as $proveedor) : ?>
+                            <option value="<?= $proveedor->id_proveedor ?>"><?= $proveedor->nombre ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Agregar Producto</button>
+                </div>  
+            </form>
+        </div>
+    <?php endif; ?>
 </div>
-
-
-<?php if ($this->user): ?>
-    <div class="col-lg-4">
-        <h2 class="text-center mb-4">Actualizar Producto</h2>
-        <form action="categorias/actualizar" method="post" class="p-4 shadow rounded bg-light">
-            <!-- <input type="hidden" name="id_categoria" value="<?= $producto->id_categoria ?>"> -->
-
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" value="<?= htmlspecialchars($producto->nombre) ?>" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required><?= htmlspecialchars($producto->descripcion) ?></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="precio" class="form-label">Precio</label>
-                <input type="number" class="form-control" id="precio" name="precio" step="0.01" value="<?= htmlspecialchars($producto->precio) ?>" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="peso_neto" class="form-label">Peso Neto (kg)</label>
-                <input type="number" class="form-control" id="peso_neto" name="peso_neto" step="0.01" value="<?= htmlspecialchars($producto->peso_neto) ?>" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="fecha_empaquetado" class="form-label">Fecha de Empaquetado</label>
-                <input type="date" class="form-control" id="fecha_empaquetado" name="fecha_empaquetado" value="<?= htmlspecialchars($producto->fecha_empaquetado) ?>" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
-                <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" value="<?= htmlspecialchars($producto->fecha_vencimiento) ?>" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="stock" class="form-label">Stock</label>
-                <input type="number" class="form-control" id="stock" name="stock" value="<?= htmlspecialchars($producto->stock) ?>" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="proveedor" class="form-label">Proveedor</label>
-                <input type="text" class="form-control" id="proveedor" name="proveedor" value="<?= htmlspecialchars($producto->proveedor) ?>" required>
-            </div>
-
-            <div class="d-grid">
-                <button type="submit" class="btn btn-primary btn-lg">Actualizar</button>
-            </div>  
-        </form>
-    </div>
-<?php endif; ?>
 
 <?php require 'templates/layout/footer.phtml'; ?>

@@ -18,10 +18,10 @@
                                 </p>
                             </div>
                             <div class="card-footer d-flex justify-content-around">
-                                <a href="categorias/<?= $categoria->id_categoria; ?>" class="btn btn-outline-primary btn-sm">Ver productos</a>
+                                <a href="categorias/verproductoscategoria/<?= $categoria->id_categoria; ?>" class="btn btn-outline-primary btn-sm">Ver productos</a>
                                 <?php if ($this->user && $this->user->rol == 'admin'): ?>
                                     <a href="categorias/eliminar/<?= $categoria->id_categoria; ?>" class="btn btn-outline-danger btn-sm">Eliminar</a>
-                                    <a href="categorias/actualizar/<?= $categoria->id_categoria; ?>" class="btn btn-outline-warning btn-sm">Editar</a>
+                                    <a href="categorias/categoriaupdate/<?=$categoria->id_categoria; ?>"class="btn btn-outline-warning btn-sm">Editar</a>
                                 <?php endif; ?>
                             </div>
                         </div>
