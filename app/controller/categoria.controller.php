@@ -59,6 +59,12 @@ class CategoriaController {
         $this->redirigir('categorias');
     }
 
+    public function showFormUpdate($id_categoria) {
+        $categoria = $this->model->getCategoriaById($id_categoria);
+        // una vez que obtiene la categoria la paso como parametro a la vista
+        $this->view->showCategoriaUpdate($categoria);
+    }
+
     private function comprobarSiExiste($id_categoria) {
         return $this->model->getCategoria($id_categoria);
     }

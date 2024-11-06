@@ -36,8 +36,9 @@ class ProductModel {
         $query->execute([$id_categoria, $nombre, $descripcion, $precio, $peso_neto, $fecha_empaquetado, $fecha_vencimiento, $stock,$proveedor]);
     }
 
-    public function actualizarProducto($id_categoria, $nombre, $descripcion, $precio, $peso_neto, $fecha_empaquetado, $fecha_vencimiento, $stock, $proveedor){
-        
+    public function actualizarProducto($id_producto, $id_categoria, $nombre, $descripcion, $precio, $peso_neto, $fecha_empaquetado, $fecha_vencimiento, $stock, $id_proveedor){
+        $query = $this->db->prepare('UPDATE productos SET id_categoria = ?, nombre = ?, descripcion = ?, precio = ?, peso_neto = ?, fecha_empaquetado = ?, fecha_vencimiento = ?, stock = ?, id_proveedor = ? WHERE id_producto = ?');
+        $query->execute([$id_categoria, $nombre, $descripcion, $precio, $peso_neto, $fecha_empaquetado, $fecha_vencimiento, $stock, $id_proveedor, $id_producto]);
     }
 
     public function eliminarProducto($id_producto) {
