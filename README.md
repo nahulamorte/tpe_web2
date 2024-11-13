@@ -21,3 +21,32 @@ Su relación es **1 a N**, es decir, un proveedor puede suministrar muchos produ
 - `id_proveedor` (FOREIGN KEY)
 
 ![Diagrama Entidad Relacion](diagrama.png)
+
+
+
+Implementamos en este proyecto un sistema de gestión de ítems y categorías, permitiendo tanto acceso público como administración privada de datos.
+En las funcionalidades de aspecto público podemos encontrar:
+
+Listado de ítems y categorias: Permite visualizar todos los ítems y categorias disponibles en la base de datos.
+Detalle de ítems y categorias: Ofreciendo una vista detallada de cada item y/o categoria.
+
+Para la parte del administrador se le dio acceso a las siguientes funcionalidades:
+
+Inicio de sesion: Los administradore deben autenticarse mediante usuario y contraseña (Usuario: webadmin, Contraseña: admin).
+Gestión de ítems: CRUD completo para la entidad ítem, incluyendo:
+Listar, agregar, editar y eliminar tanto ítems como categorías.
+
+Requerimientos técnicos:
+El sistema utiliza PHP como lenguaje de programación y MySQL como base de datos.
+Base de datos: la conexion se configura a traves de constantes en config.php.
+Arquitectura MVC: Todas las acciones están implementadas bajo el patraon de arquitectura MVC (Modelo - Vista - Controlador).
+Sistema de Ruteo y URL's semánticas: Se implementa un router y urls semanticas a la página.
+Plantillas: Se utilizan plantillas con extension. phtml, invocadas por la vista.
+
+Lamorte Nahuel, Alonso Mateo.
+
+
+
+
+
+
