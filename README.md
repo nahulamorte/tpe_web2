@@ -43,7 +43,7 @@ Arquitectura MVC: Todas las acciones están implementadas bajo el patraon de arq
 Sistema de Ruteo y URL's semánticas: Se implementa un router y urls semanticas a la página.
 Plantillas: Se utilizan plantillas con extension. phtml, invocadas por la vista.
 
-![Diagrama Entidad Relacion](/databse/diagrama2daParte.png)
+![Diagrama Entidad Relacion](/database/diagrama2daParte.png)
 
 Lamorte Nahuel, Alonso Mateo.
 
