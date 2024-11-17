@@ -20,7 +20,7 @@ Su relación es **1 a N**, es decir, un proveedor puede suministrar muchos produ
 - `stock`
 - `id_proveedor` (FOREIGN KEY)
 
-![Diagrama Entidad Relacion](diagrama.png)
+![Diagrama Entidad Relacion](/database/diagrama.png)
 
 
 
