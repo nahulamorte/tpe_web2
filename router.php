@@ -25,23 +25,24 @@ switch($params[0]) {
         sessionAuthMiddleware($res);
         $product_controller = new ProductController($res);
         if (isset($params[1])) {
-            verifyAuthMiddleware($res);
-            switch($params[1]) {
-                case 'ver':
-                    $product_controller->verDetalle($params[2]);
-                    break;
-                case 'actualizar':
-                    $product_controller->actualizarProducto($params[2]); // le paso el id el resto sera recibido por get o post
-                    break;
-                case 'productupdate':
-                    $product_controller->showProductUpdate($params[2]);
-                    break;
-                case 'eliminar':
-                    $product_controller->eliminarProducto($params[2]);
-                    break;
-                case 'agregar':
-                    $product_controller->agregarProducto();
-                    break;
+            if ($params[1] == 'ver') {
+                $product_controller->verDetalle($params[2]);
+            } else {
+                verifyAuthMiddleware($res);
+                switch($params[1]) {
+                    case 'actualizar':
+                        $product_controller->actualizarProducto($params[2]); // le paso el id el resto sera recibido por get o post
+                        break;
+                    case 'productupdate':
+                        $product_controller->showProductUpdate($params[2]);
+                        break;
+                    case 'eliminar':
+                        $product_controller->eliminarProducto($params[2]);
+                        break;
+                    case 'agregar':
+                        $product_controller->agregarProducto();
+                        break;
+                }
             }
         } else {
             $product_controller->mostrarProductos($res);

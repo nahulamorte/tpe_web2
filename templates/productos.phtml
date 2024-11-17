@@ -41,7 +41,7 @@
         </div>
     <?php endif; ?>
 
-    <?php if ($this->user): ?>
+    <?php if ($this->user && $this->user->rol == 'admin'): ?>
         <div class="col-lg-4 mx-auto mt-4"> <!-- Centrar el formulario debajo de los productos -->
             <h2 class="text-center mb-4 p-3">Agregar producto</h2>
             <form action="<?= BASE_URL ?>/productos/agregar" method="POST" class="p-4 shadow rounded bg-light">
